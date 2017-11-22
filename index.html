@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attack</title>
+    <link rel="icon" href="d20.png" />
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=400">
+    <style>
+    </style>
+</head>
+
+<body>
+    <table id="tableOpt">
+        <tr>
+            <td colspan="2">
+                <u><h1>D20 Attack Calculator</h1></u>
+            </td>
+        </tr>
+        <tr class="head">
+            <td colspan="2">
+                Defence
+            </td>
+        </tr>
+        <tr>
+            <td class="botbord">
+                Armor Class
+                <input type="number" id="inputArmourClass" class="input-small" placeholder="10" />
+            </td>
+            <td class="botbord">
+                Damage Reduction
+                <input type="number" id="inputDamageRedaction" class="input-small" placeholder="0" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr class="head">
+            <td colspan="2">
+                Offence
+            </td>
+        </tr>
+        <tr>
+            <td class="botbord" colspan="2">
+                Attack Roll Dice :
+                <input type="number" id="inputAttackDice" class="input-small" placeholder="1" /> d20 +
+                <input type="number" id="inputAttackRollMod" class="input-small" placeholder="0" />
+            </td>
+        </tr>
+        <tr id="trDamageDice">
+            <td colspan="2">
+                Damage Dice :
+                <input type="number" id="inputDamageDice" class="input-small" placeholder="1" />
+                <select id="selectDamageDieType">
+                    <option value="3">d3</option>
+                    <option value="4">d4</option>
+                    <option value="6">d6</option>
+                    <option value="8">d8</option>
+                    <option value="10">d10</option>
+                    <option value="12">d12</option>
+                    <option value="20">d20</option>
+                    <option value="100">d100</option>
+                </select> +
+                <input type="number" id="inputAttackDamageMod" class="input-small" placeholder="0" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button style="width: 40px" onclick="myCreateFunction()">+</button>
+                <button style="width: 40px" onclick="myDeleteFunction()">-</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Critical :
+                <input type="number" id="inputCriticalRange" class="input-small" placeholder="20" /> /x
+                <input type="number" id="inputCriticalMultiplier" class="input-small" placeholder="2" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="RollFunction();return false">Roll</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>
+                <font color="blue" size='2'>Success</font> ,
+                <font color="green" size='2'>Critical</font> ,
+                <font color="red" size='2'>Botch</font> ,
+                <font size='2'>Miss</font> 
+                    </b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Attack Rolls :
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="botbord">
+                <label id="labelAttackRoll"></label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Damage Rolls :
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="botbord">
+                <label id="labelAttackDamage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Total Damage :
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b><label id="labelTotalDamage" style="font-size:xx-large"></label></b>
+            </td>
+        </tr>
+    </table>
+
+    <script src="dice.js"></script>
+    <script>
+        function RollFunction() {
+            document.getElementById("labelAttackRoll").style.color = "";
+            document.getElementById("labelAttackRoll").style.fontWeight = "";
+
+            document.getElementById("labelAttackRoll").innerHTML = "";
+            document.getElementById("labelAttackDamage").innerHTML = "";
+            var AttackDice = document.getElementById("inputAttackDice").value || 1;
+            var AttackDamageTotalSum = 0;
+            while (AttackDice > 0) {
+                AttackDamageTotalSum = CalculateRoll(AttackDamageTotalSum);
+                AttackDice--;
+            }
+            document.getElementById("labelTotalDamage").innerHTML = AttackDamageTotalSum;
+        }
+
+        function CalculateRoll(AttackDamageTotalSum) {
+            var AttackRoll = dice(20);
+            var AttackRollMod = document.getElementById("inputAttackRollMod").value || 0;
+            var AttackRollTotal = parseInt(AttackRoll) + parseInt(AttackRollMod);
+            var AttackRollConf = dice(20);
+            var AttackRollTotalConf = parseInt(AttackRollConf) + parseInt(AttackRollMod);
+
+            var DamageDieType = document.getElementById("selectDamageDieType").value || 6;
+            var DamageDice = document.getElementById("inputDamageDice").value || 1;
+            var AttackDamage = dice(DamageDieType, DamageDice) || 0;  
+            var AttackDamageMod = document.getElementById("inputAttackDamageMod").value || 0;
+            var CriticalRange = document.getElementById("inputCriticalRange").value || 20;
+            var CriticalMultiplier = document.getElementById("inputCriticalMultiplier").value || 2;
+
+            var num = 2;
+            while (document.getElementById("inputDamageDice_" + num) != null) {
+                DamageDieType = document.getElementById("selectDamageDieType_" + num).value || 6;
+                DamageDice = document.getElementById("inputDamageDice_" + num).value || 1;
+                AttackDamage += dice(DamageDieType, DamageDice) || 0;  
+                AttackDamageMod = parseInt(AttackDamageMod) + (parseInt(document.getElementById("inputAttackDamageMod_" + num).value) || 0);
+                num++;
+            }
+
+            var ArmorClass = document.getElementById("inputArmourClass").value || 10;
+            var DamageRedaction = document.getElementById("inputDamageRedaction").value || 0;
+            var AttackDamageTotal = parseInt(AttackDamage) + parseInt(AttackDamageMod) - parseInt(DamageRedaction);
+            AttackDamageTotal = AttackDamageTotal < 0 ? 0 : AttackDamageTotal;
+
+            if (AttackRoll == 1 && AttackRollTotalConf < ArmorClass) {
+                AttackRollTotal = "<b><font color='red' size='5'>" + AttackRollTotalConf + "</font></b>";
+                AttackDamageTotal = "<b><font color='red' size='5'>" + AttackDamageTotal + "</font></b>";
+            } else if (AttackRoll >= CriticalRange && AttackRollTotalConf >= ArmorClass) {
+                AttackDamageTotal = AttackDamageTotal * CriticalMultiplier;
+                AttackDamageTotalSum += AttackDamageTotal;
+                AttackRollTotal = "<b><font color='green' size='5'>" + AttackRollTotalConf + "</font></b>";
+                AttackDamageTotal = "<b><font color='green' size='5'>" + AttackDamageTotal + "</font></b>";
+            } else if (AttackRollTotal >= ArmorClass) {
+                AttackDamageTotalSum += AttackDamageTotal;
+                AttackRollTotal = "<b><font color='blue' size='4'>" + AttackRollTotal + "</font></b>";
+                AttackDamageTotal = "<b><font color='blue' size='4'>" + AttackDamageTotal + "</font></b>";
+            }
+            document.getElementById("labelAttackRoll").innerHTML += (document.getElementById("labelAttackRoll").innerHTML.length > 0 ? " , " : "") + AttackRollTotal;
+            document.getElementById("labelAttackDamage").innerHTML += (document.getElementById("labelAttackDamage").innerHTML.length > 0 ? " , " : "") + AttackDamageTotal;
+
+            return AttackDamageTotalSum;
+        }
+
+        function myCreateFunction() {
+            var table = document.getElementById("tableOpt");
+            var row = table.insertRow(7);
+            //            var cell1 = row.insertCell(0);
+            //            var cell2 = row.insertCell(1);
+            row.innerHTML = document.getElementById("trDamageDice").innerHTML;
+            var num = 1;
+            while (document.getElementById("inputDamageDice") != null) {
+                if (document.getElementById("inputDamageDice_" + num) == null) {
+                    document.getElementById("inputDamageDice").id = "inputDamageDice_" + num;
+                    document.getElementById("selectDamageDieType").id = "selectDamageDieType_" + num;
+                    document.getElementById("inputAttackDamageMod").id = "inputAttackDamageMod_" + num;
+                    //                    document.getElementById("inputCriticalRange").id = "inputCriticalRange_" + num;
+                    //                    document.getElementById("inputCriticalMultiplier").id = "inputCriticalMultiplier_" + num;
+                }
+                num++;
+            }
+            if (document.getElementById("inputDamageDice_1") != null) {
+                document.getElementById("inputDamageDice_1").id = "inputDamageDice";
+                document.getElementById("selectDamageDieType_1").id = "selectDamageDieType";
+                document.getElementById("inputAttackDamageMod_1").id = "inputAttackDamageMod";
+                //                document.getElementById("inputCriticalRange_1").id = "inputCriticalRange";
+                //                document.getElementById("inputCriticalMultiplier_1").id = "inputCriticalMultiplier";
+            }
+        }
+
+        function myDeleteFunction() {
+            if (document.getElementById("inputDamageDice_2") != null) {
+                document.getElementById("tableOpt").deleteRow(7);
+            }
+        }
+    </script>
+</body>
+
+</html>

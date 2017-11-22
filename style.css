@@ -1,0 +1,60 @@
+html * {
+    /*            font-family: Comic Sans MS;*/
+    font-family: Arial;
+}
+
+body {
+    background-image: url("Parchment.gif");
+    width: 400px;
+}
+
+input,
+select {
+    text-align: center;
+    border: 1px solid;
+    border-radius: 10px;
+    font-size: large;
+}
+
+button {
+    width: -webkit-fill-available;
+    font-weight: bold;
+    font-size: large;
+}
+
+table {
+    width: -webkit-fill-available;
+    font-size: large;
+    border: none;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table td {
+    border-left: 2px solid;
+    border-right: 2px solid;
+    padding: 3px;
+}
+
+table td:first-child {
+    border-left: none;
+}
+
+table td:last-child {
+    border-right: none;
+}
+
+.input-small {
+    width: 50px;
+}
+
+.botbord {
+    border-bottom: 1px solid;
+}
+
+.head {
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+    border-bottom: 3px solid;
+}
