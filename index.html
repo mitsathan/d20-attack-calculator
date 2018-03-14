@@ -14,22 +14,24 @@
 <body>
     <table id="tableOpt">
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 <u><h1>D20 Attack Calculator</h1></u>
             </td>
         </tr>
         <tr class="head">
-            <td colspan="2">
+            <td colspan="4">
                 Defence
             </td>
         </tr>
         <tr>
-            <td class="botbord">
+            <td colspan="2" class="botbord" style="width: 50%">
                 Armor Class
+                <br>
                 <input type="number" id="inputArmourClass" class="input-small" placeholder="10" />
             </td>
-            <td class="botbord">
+            <td colspan="2" class="botbord" style="width: 50%">
                 Damage Reduction
+                <br>
                 <input type="number" id="inputDamageRedaction" class="input-small" placeholder="0" />
             </td>
         </tr>
@@ -39,19 +41,19 @@
             </td>
         </tr>
         <tr class="head">
-            <td colspan="2">
+            <td colspan="4">
                 Offence
             </td>
         </tr>
         <tr>
-            <td class="botbord" colspan="2">
+            <td class="botbord" colspan="4">
                 Attack Roll Dice :
                 <input type="number" id="inputAttackDice" class="input-small" placeholder="1" /> d20 +
                 <input type="number" id="inputAttackRollMod" class="input-small" placeholder="0" />
             </td>
         </tr>
         <tr id="trDamageDice">
-            <td colspan="2">
+            <td colspan="4">
                 Damage Dice :
                 <input type="number" id="inputDamageDice" class="input-small" placeholder="1" />
                 <select id="selectDamageDieType">
@@ -65,64 +67,128 @@
                     <option value="100">d100</option>
                 </select> +
                 <input type="number" id="inputAttackDamageMod" class="input-small" placeholder="0" />
+                <br> Type :
+                <select id="selectDamageType">
+                    <option>None</option>
+                    <option>Acid</option>
+                    <option>Cold</option>
+                    <option>Slash</option>
+                    <option>Piercing</option>
+                </select>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 <button style="width: 40px" onclick="myCreateFunction()">+</button>
                 <button style="width: 40px" onclick="myDeleteFunction()">-</button>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 Critical :
                 <input type="number" id="inputCriticalRange" class="input-small" placeholder="20" /> /x
                 <input type="number" id="inputCriticalMultiplier" class="input-small" placeholder="2" />
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 <button onclick="RollFunction();return false">Roll</button>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <b>
-                <font color="blue" size='2'>Success</font> ,
-                <font color="green" size='2'>Critical</font> ,
-                <font color="red" size='2'>Botch</font> ,
-                <font size='2'>Miss</font> 
-                    </b>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+            <td colspan="4">
                 Attack Rolls :
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="botbord">
+            <td colspan="4" class="botbord">
                 <label id="labelAttackRoll"></label>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 Damage Rolls :
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="botbord">
+            <td colspan="4" class="botbord">
                 <label id="labelAttackDamage"></label>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="4">
                 Total Damage :
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <b><label id="labelTotalDamage" style="font-size:xx-large"></label></b>
+            <td colspan="4" class="botbord">
+                <b><label id="labelTotalDamage" style="font-size:3em;font-weight: bold"></label></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="botbord">
+                <b>
+                <font color="blue" size='2'>Success</font>                     
+                </b>
+            </td>
+            <td class="botbord">
+                <b>
+                <font color="green" size='2'>Critical</font>                     
+                </b>
+            </td>
+            <td class="botbord">
+                <b>
+                <font color="red" size='2'>Botch</font>                     
+                </b>
+            </td>
+            <td class="botbord">
+                <b>
+                <font size='2'>Miss</font> 
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                <font color="blue" size='2'><label id="labelCountSuccess"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font color="green" size='2'><label id="labelCountCritical"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font color="red" size='2'><label id="labelCountBotch"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font size='2'><label id="labelCountMiss"></label></font>
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                <font color="blue" size='2'><label id="labelCountSuccessDamage"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font color="green" size='2'><label id="labelCountCriticalDamage"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font color="red" size='2'><label id="labelCountBotchDamage"></label></font>
+                </b>
+            </td>
+            <td>
+                <b>
+                <font size='2'><label id="labelCountMissDamage"></label></font>
+                </b>
             </td>
         </tr>
     </table>
@@ -135,16 +201,34 @@
 
             document.getElementById("labelAttackRoll").innerHTML = "";
             document.getElementById("labelAttackDamage").innerHTML = "";
+
+            document.getElementById("labelTotalDamage").innerHTML = "";
+            document.getElementById("labelCountSuccess").innerHTML = "";
+            document.getElementById("labelCountCritical").innerHTML = "";
+            document.getElementById("labelCountBotch").innerHTML = "";
+            document.getElementById("labelCountMiss").innerHTML = "";
+            document.getElementById("labelCountSuccessDamage").innerHTML = "";
+            document.getElementById("labelCountCriticalDamage").innerHTML = "";
+            document.getElementById("labelCountBotchDamage").innerHTML = "";
+            document.getElementById("labelCountMissDamage").innerHTML = "";
             var AttackDice = document.getElementById("inputAttackDice").value || 1;
-            var AttackDamageTotalSum = 0;
             while (AttackDice > 0) {
-                AttackDamageTotalSum = CalculateRoll(AttackDamageTotalSum);
+                var arr = CalculateRoll();
+                document.getElementById("labelTotalDamage").innerHTML = (parseInt(document.getElementById("labelTotalDamage").innerHTML) || 0) + arr.AttackDamageTotalSum;
+                document.getElementById("labelCountSuccess").innerHTML = (parseInt(document.getElementById("labelCountSuccess").innerHTML) || 0) + arr.CountSuccess;
+                document.getElementById("labelCountCritical").innerHTML = (parseInt(document.getElementById("labelCountCritical").innerHTML) || 0) + arr.CountCritical;
+                document.getElementById("labelCountBotch").innerHTML = (parseInt(document.getElementById("labelCountBotch").innerHTML) || 0) + arr.CountBotch;
+                document.getElementById("labelCountMiss").innerHTML = (parseInt(document.getElementById("labelCountMiss").innerHTML) || 0) + arr.CountMiss;
+                debugger;
+                document.getElementById("labelCountSuccessDamage").innerHTML = (parseInt(document.getElementById("labelCountSuccessDamage").innerHTML) || 0) + parseInt(arr.CountSuccessDamage);
+                document.getElementById("labelCountCriticalDamage").innerHTML = (parseInt(document.getElementById("labelCountCriticalDamage").innerHTML) || 0) + parseInt(arr.CountCriticalDamage);
+                document.getElementById("labelCountBotchDamage").innerHTML = (parseInt(document.getElementById("labelCountBotchDamage").innerHTML) || 0) + parseInt(arr.CountBotchDamage);
+                document.getElementById("labelCountMissDamage").innerHTML = (parseInt(document.getElementById("labelCountMissDamage").innerHTML) || 0) + parseInt(arr.CountMissDamage);
                 AttackDice--;
             }
-            document.getElementById("labelTotalDamage").innerHTML = AttackDamageTotalSum;
         }
 
-        function CalculateRoll(AttackDamageTotalSum) {
+        function CalculateRoll() {
             var AttackRoll = dice(20);
             var AttackRollMod = document.getElementById("inputAttackRollMod").value || 0;
             var AttackRollTotal = parseInt(AttackRoll) + parseInt(AttackRollMod);
@@ -157,6 +241,16 @@
             var AttackDamageMod = document.getElementById("inputAttackDamageMod").value || 0;
             var CriticalRange = document.getElementById("inputCriticalRange").value || 20;
             var CriticalMultiplier = document.getElementById("inputCriticalMultiplier").value || 2;
+
+            var AttackDamageTotalSum = 0;
+            var CountSuccess = 0;
+            var CountCritical = 0;
+            var CountBotch = 0;
+            var CountMiss = 0;
+            var CountSuccessDamage = 0;
+            var CountCriticalDamage = 0;
+            var CountBotchDamage = 0;
+            var CountMissDamage = 0;
 
             var num = 2;
             while (document.getElementById("inputDamageDice_" + num) != null) {
@@ -173,22 +267,42 @@
             AttackDamageTotal = AttackDamageTotal < 0 ? 0 : AttackDamageTotal;
 
             if (AttackRoll == 1 && AttackRollTotalConf < ArmorClass) {
+                CountBotchDamage = AttackDamageTotal;
                 AttackRollTotal = "<b><font color='red' size='5'>" + AttackRollTotalConf + "</font></b>";
                 AttackDamageTotal = "<b><font color='red' size='5'>" + AttackDamageTotal + "</font></b>";
+                CountBotch++;
             } else if (AttackRoll >= CriticalRange && AttackRollTotalConf >= ArmorClass) {
                 AttackDamageTotal = AttackDamageTotal * CriticalMultiplier;
                 AttackDamageTotalSum += AttackDamageTotal;
+                CountCriticalDamage = AttackDamageTotal;
                 AttackRollTotal = "<b><font color='green' size='5'>" + AttackRollTotalConf + "</font></b>";
                 AttackDamageTotal = "<b><font color='green' size='5'>" + AttackDamageTotal + "</font></b>";
+                CountCritical++;
             } else if (AttackRollTotal >= ArmorClass) {
                 AttackDamageTotalSum += AttackDamageTotal;
+                CountSuccessDamage = AttackDamageTotal;
                 AttackRollTotal = "<b><font color='blue' size='4'>" + AttackRollTotal + "</font></b>";
                 AttackDamageTotal = "<b><font color='blue' size='4'>" + AttackDamageTotal + "</font></b>";
+                CountSuccess++;
+            } else {
+                CountMiss++;
+                CountMissDamage = AttackDamageTotal;
+
             }
             document.getElementById("labelAttackRoll").innerHTML += (document.getElementById("labelAttackRoll").innerHTML.length > 0 ? " , " : "") + AttackRollTotal;
             document.getElementById("labelAttackDamage").innerHTML += (document.getElementById("labelAttackDamage").innerHTML.length > 0 ? " , " : "") + AttackDamageTotal;
 
-            return AttackDamageTotalSum;
+            return {
+                AttackDamageTotalSum,
+                CountSuccess,
+                CountCritical,
+                CountBotch,
+                CountMiss,
+                CountSuccessDamage,
+                CountCriticalDamage,
+                CountBotchDamage,
+                CountMissDamage
+            };
         }
 
         function myCreateFunction() {
@@ -203,6 +317,7 @@
                     document.getElementById("inputDamageDice").id = "inputDamageDice_" + num;
                     document.getElementById("selectDamageDieType").id = "selectDamageDieType_" + num;
                     document.getElementById("inputAttackDamageMod").id = "inputAttackDamageMod_" + num;
+                    document.getElementById("selectDamageType").id = "selectDamageType_" + num;
                     //                    document.getElementById("inputCriticalRange").id = "inputCriticalRange_" + num;
                     //                    document.getElementById("inputCriticalMultiplier").id = "inputCriticalMultiplier_" + num;
                 }
@@ -212,6 +327,7 @@
                 document.getElementById("inputDamageDice_1").id = "inputDamageDice";
                 document.getElementById("selectDamageDieType_1").id = "selectDamageDieType";
                 document.getElementById("inputAttackDamageMod_1").id = "inputAttackDamageMod";
+                document.getElementById("selectDamageType_1").id = "selectDamageType";
                 //                document.getElementById("inputCriticalRange_1").id = "inputCriticalRange";
                 //                document.getElementById("inputCriticalMultiplier_1").id = "inputCriticalMultiplier";
             }

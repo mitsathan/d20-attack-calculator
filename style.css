@@ -5,7 +5,8 @@ html * {
 
 body {
     background-image: url("Parchment.gif");
-    width: 400px;
+    width: auto;
+    margin: 0px;
 }
 
 input,
